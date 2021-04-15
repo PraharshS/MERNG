@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 
 export default function MenuBar() {
   const pathname = window.location.pathname;
