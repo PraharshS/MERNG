@@ -24,8 +24,12 @@ function generateToken(res) {
 module.exports = {
   Mutation: {
     async login(_, { username, password }) {
-      const { errors, valid } = validateLoginInput(username, password);
-      if (!valid) {
+      //  Validate user data
+
+      const object = validateLoginInput(username, password);
+
+      const errors = object.errors;
+      if (!object.valid) {
         throw new UserInputError("Errors", { errors });
       }
       const user = await User.findOne({ username });
@@ -52,16 +56,19 @@ module.exports = {
       { registerInput: { username, email, password, confirmPassword } }
     ) {
       //  Validate user data
-      const { valid, errors } = validateRegisterInput(
+      const object = validateRegisterInput(
         username,
         email,
         password,
         confirmPassword
       );
-      if (!valid) {
+
+      const errors = object.errors;
+      if (!object.valid) {
         throw new UserInputError("Errors", { errors });
       }
       //  Make sure user doesnt already exists
+
       const user = await User.findOne({ username });
       if (user) {
         throw new UserInputError("Username is taken", {
