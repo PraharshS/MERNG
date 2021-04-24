@@ -9,6 +9,7 @@ import {
   Icon,
   Form,
   Card,
+  Popup,
   Grid,
   CardContent,
 } from "semantic-ui-react";
@@ -76,18 +77,24 @@ export default function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelposition="right"
-                  onClick={() => console.log("Comment on Post")}
-                >
-                  <Button basic color="blue">
-                    <Icon name="comments" />
-                  </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                <Popup
+                  content="Comment on post"
+                  inverted
+                  trigger={
+                    <Button
+                      as="div"
+                      labelposition="right"
+                      onClick={() => console.log("Comment on Post")}
+                    >
+                      <Button basic color="blue">
+                        <Icon name="comments" />
+                      </Button>
+                      <Label basic color="blue" pointing="left">
+                        {commentCount}
+                      </Label>
+                    </Button>
+                  }
+                ></Popup>
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
